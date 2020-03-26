@@ -1,0 +1,48 @@
+{
+  "pages": [
+    "pages/kitchen/kietchen",
+    "pages/classify/classify",
+    "pages/market/market",
+    "pages/mine/mine",
+    "pages/search/search"
+  ],
+  "tabBar": {
+    "color": "#383831",
+    "selectedColor": "#F96650",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/kitchen/kietchen",
+        "text": "下厨房",
+        "iconPath": "/images/home.png",
+        "selectedIconPath": "/images/home-active.png"
+      },
+      {
+        "pagePath": "pages/classify/classify",
+        "text": "分类",
+        "iconPath": "/images/classify.png",
+        "selectedIconPath": "/images/classify-active.png"
+      },
+      {
+        "pagePath": "pages/market/market",
+        "text": "市集",
+        "iconPath": "/images/market.png",
+        "selectedIconPath": "/images/market-active.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "/images/mine.png",
+        "selectedIconPath": "/images/mine-active.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "default"
+  },
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,275 @@
+/**app.wxss**/
+@import "./weui.wxss";
+page {
+    height: 100%;
+}
+
+.container {
+    background-color: #ffffff;
+    font-family: "Helvetica Neue",Helvetica;
+    color: #383831;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container.has-bottom-safe-area {
+    padding-bottom: 60rpx;
+}
+
+.ellipsis {
+    white-space: nowrap;
+    word-wrap: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.loading-bar {
+    text-align: center;
+    padding: 10px;
+}
+
+.loading-bar image {
+    width: 40rpx;
+    height: 40rpx;
+    display: inline-block;
+}
+
+.expert {
+    width: 28rpx;
+    height: 28rpx;
+    display: inline-block;
+    background-size: 28rpx 28rpx;
+}
+
+.space {
+    display: inline-block;
+    padding: 0 8rpx;
+    text-align: center;
+    font-weight: bold;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-colum {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn {
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    display: inline-block;
+    background-color: #F96650;
+    border-radius: 0;
+    font-size: 34rpx;
+    line-height: 60rpx;
+    height: 80rpx;
+    color: #fff;
+    text-align: center;
+    padding: 10rpx 40rpx;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+}
+
+.btn::after {
+    display: none;
+}
+
+.btn-sm {
+    height: auto;
+    line-height: 28rpx;
+    font-size: 28rpx;
+    padding: 16rpx 14rpx;
+}
+
+.btn-lg {
+    height: 50rpx;
+    line-height: 30rpx;
+    font-size: 17rpx;
+    padding: 10rpx 20rpx;
+}
+
+.btn-block {
+    display: block;
+}
+
+.btn-outline {
+    border: 1rpx solid #F96650;
+    background-color: #fff;
+    color: #F96650;
+}
+
+.btn-link {
+    background-color: transparent;
+    color: #F96650;
+}
+
+.btn-flat {
+    border-radius: 0;
+}
+
+.btn-disabled {
+    opacity: 0.5;
+}
+
+.toast {
+    padding: 30rpx;
+    font-size: 30rpx;
+    background-color: rgba(0,0,0,0.6);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%,-50%,0);
+    color: #fff;
+    border-radius: 10rpx;
+    text-align: center;
+    min-width: 200rpx;
+    max-width: 320rpx;
+}
+
+.pop-dialog-wrap {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 100;
+}
+
+.has-bottom-safe-area .pop-dialog {
+    padding-bottom: 68rpx;
+}
+
+.pop-dialog {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
+}
+
+.pop-dialog .top-bar {
+    display: flex;
+    align-items: center;
+    font-size: 28rpx;
+}
+
+.pop-dialog .top-bar .title {
+    text-align: center;
+    flex: 1;
+}
+
+.pop-dialog .opt-btn {
+    color: #fa6650;
+    padding: 30rpx 35rpx;
+}
+
+.pop-dialog .opt-btn.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.pop-dialog-cnt {
+    padding: 35rpx;
+    color: #383831;
+}
+
+.pop-dialog-cnt .label {
+    font-size: 34rpx;
+}
+
+.pop-dialog-cnt .input,.pop-dialog-cnt .textarea {
+    font-size: 24rpx;
+    padding: 20rpx 0;
+    margin-bottom: 30rpx;
+    color: #95958f;
+}
+
+.pop-dialog-cnt .textarea {
+    height: 90rpx;
+    width: 100%;
+}
+
+.pop-dialog-cnt .input-placeholder {
+    color: #c6c6bd;
+}
+
+.opt-bar {
+    position: fixed;
+    height: 98rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
+    border-top: 1rpx solid #E5E5E3;
+}
+
+.has-bottom-safe-area .opt-bar {
+    padding-bottom: 60rpx;
+}
+
+.opt-bar-holder {
+    height: 98rpx;
+}
+
+.opt-bar .icon {
+    width: 50rpx;
+    height: 50rpx;
+    padding: 0 10rpx;
+}
+
+.opt-bar-item {
+    padding: 0 22rpx;
+    font-size: 24rpx;
+    height: 98rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #0D0D0D;
+    flex: 1;
+    background-color: transparent;
+    border: none;
+}
+
+.share-btn {
+    margin: 0;
+    background-color: transparent;
+    border: none;
+}
+
+.share-btn::after,.opt-bar-item::after {
+    display: none;
+}
+
+.share-btn::before {
+    display: none;
+}
+
+.share-btn .icon {
+    width: 46rpx;
+    height: 46rpx;
+}
+
+.emp {
+    display: inline;
+    padding: 0 8rpx;
+    font-weight: bold;
+}

@@ -1,0 +1,47 @@
+function picUrl(image, width) {
+    if (!image) {
+        return ('')
+    };
+    width = typeof width !== 'undefined' ? width : 640;
+    var ratio = image.original_width / image.original_height;
+    var height = Math.floor(Math.min(width, image.max_width) / ratio);
+    return (image.url_pattern.replace('{width}', width).replace('{height}', height).replace('{format}', 'jpg'))
+};
+
+function startWith(str, search) {
+    return (str.indexOf(search) === 0)
+};
+
+function ingredientCaption(str) {
+    if (startWith(str, '#')) {
+        return (str.replace('#', ''))
+    } else {
+        return (str)
+    }
+};
+
+function getYear(date) {
+    if (!date) {
+        return ('')
+    };
+    return (date.split('-')[(0)])
+};
+
+function encode(str) {
+    return (encodeURIComponent(str))
+};
+
+function joinGradient(arr) {
+    if (arr.length === 1) {
+        arr.push(arr[(0)])
+    };
+    return (arr.join(', '))
+};
+module.exports = ({
+    getYear: getYear,
+    picUrl: picUrl,
+    startWith: startWith,
+    ingredientCaption: ingredientCaption,
+    encode: encode,
+    joinGradient: joinGradient,
+});

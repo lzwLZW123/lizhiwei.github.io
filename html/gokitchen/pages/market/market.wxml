@@ -1,0 +1,16 @@
+<view>
+  <van-button type="default">默认样式</van-button>
+  <van-button type="primary">主要按钮</van-button>
+  <van-button type="info">信息按钮</van-button>
+  <van-button type="warning">警告按钮</van-button>
+  <van-button type="danger">危险按钮</van-button>
+</view>
+<!-- 
+    面试题
+    1.简要谈谈你对react中的虚拟Dom及Diff算法的理解？
+    2.react 组件生命周期分为几个阶段,有哪几个常见的生命周期钩子函数？
+    3.react 如何校验 props 和 context？
+    4.react 里面架构管理 redux 的原理 以及分层？
+    5.ES6 中你是怎么使用 promise 的，并手写一个promise?
+
+ -->
