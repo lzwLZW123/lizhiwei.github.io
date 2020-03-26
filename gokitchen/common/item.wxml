@@ -1,0 +1,44 @@
+<template name="search-item">
+    <navigator bindtap="searchItemClick" class="search-item-link" data-index="{{index}}" data-title="菜谱搜索结果" hoverClass="none" url="/pages/recipe/recipe?id={{item.id}}">
+        <view class="search-item">
+            <image class="cover" lazyLoad="{{true}}" mode="aspectFill" src="{{item.photo90}}"></image>
+            <view class="detail">
+                <view class="recipe-labels" wx:if="{{item.labels.length>0}}">
+                    <view class="recipe-label" style="color: {{label.color_v2}}; background: linear-gradient(90deg, {{utils.joinGradient(label.gradient_bg_colors)}});" wx:for="{{item.labels}}" wx:for-item="label" wx:key="{{index}}">
+            {{label.text}}
+          </view>
+                </view>
+                <view class="name ellipsis">{{item.name}}</view>
+                <view class="ingredient ellipsis" wx:if="{{item.labels.length===0}}">
+                    <block wx:for="{{item.ingredient}}" wx:for-item="ingredient" wx:key="{{index}}">
+            {{ingredient.name}}{{index<item.ingredient.length-1?'、':''}}
+          </block>
+                </view>
+                <view class="stats">
+                    <view class="item-reason ellipsis" wx:if="{{item.reason!==''}}">{{item.reason}}</view>
+                    <block wx:else>
+                        <block wx:if="{{item.score}}">{{item.score}}分</block>
+                        <view class="space" wx:if="{{item.score&&item.stats.n_cooked}}">·</view>
+            {{item.stats.n_cooked&&item.stats.n_cooked!=='0'?item.stats.n_cooked+'人做过':''}}</block>
+                </view>
+                <view class="author ellipsis">{{item.author.name}}</view>
+            </view>
+        </view>
+    </navigator>
+</template>
+<template name="recipe-card">
+    <navigator url="/pages/recipe/recipe?id={{item.recipe.id}}">
+        <view class="recipe-item">
+            <image class="cover" mode="aspectFill" src="{{item.recipe.photo}}"></image>
+            <view class="detail">
+                <view class="name">{{item.recipe.name}}</view>
+                <view class="info">{{item.recipe.score}}分 {{item.recipe.stats.n_cooked}}人做过</view>
+                <view class="author">
+                    <image class="avatar" src="{{item.recipe.author.photo160}}"></image>
+                    <view class="author-name ellipsis">{{item.recipe.author.name}}</view>
+                </view>
+            </view>
+        </view>
+    </navigator>
+</template>
+<wxs module="utils" src="utils.wxs" />

@@ -1,0 +1,19 @@
+<navigator class="recipe-grid-item" hoverClass="none" url="/pages/recipe/recipe?id={{recipe.id}}">
+    <view class="recipe-cover-wrap" style="padding-top: {{recipe.image.original_height/recipe.image.original_width*100}}%">
+        <image class="recipe-cover" lazyLoad="{{true}}" mode="aspectFill" src="{{utils.picUrl(recipe.image,320)}}"></image>
+        <slot></slot>
+    </view>
+    <view class="recipe-detail">
+        <view class="recipe-info">
+            <view class="recipe-title">{{recipe.name}}</view>
+            <view class="recipe-stats">
+                <view class="recipe-score" wx:if="{{reason==='推广'}}">推广</view>
+                <block wx:else>
+          {{recipe.score?recipe.score+'分・':''}}
+          {{recipe.stats.n_cooked&&recipe.stats.n_cooked!=='0'?recipe.stats.n_cooked+'人做过':''}}
+        </block>
+            </view>
+        </view>
+    </view>
+</navigator>
+<wxs module="utils" src="../../common/utils.wxs" />

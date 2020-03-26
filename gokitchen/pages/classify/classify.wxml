@@ -1,0 +1,46 @@
+<view wx:scope-data="{{...categoryScopeData}}">
+    <view class="container {{hasBottomSafeArea?'has-bottom-safe-area':''}}" id="category-root" style="{{pageScroll?'':'position:fixed;top:-'+pageScrollTop+'px;width:100%;'}}">
+        <view class="category-list">
+            <block wx:for="{{categorys}}" wx:key="{{index}}">
+                <view class="category-title">{{item.title}}</view>
+                <view class="category-cnt">
+                    <div bindtap="openCat" class="category-item" data-current="{{index}},{{subIndex}}" data-keyword="{{cat.name}}" data-title="{{cat.name}}" data-type="{{cat.type}}" style="background-image: url({{cat.picurl}});" wx:if="{{cat.type!=='ad'}}" wx:for="{{item.entries}}" wx:for-index="subIndex" wx:for-item="cat" wx:key="{{subIndex}}">
+                        <div class="category-label">{{cat.name}}</div>
+                    </div>
+                </view>
+            </block>
+        </view>
+        <view class="pop-dialog-wrap" wx:if="{{!canUseComponent&&showDialog}}">
+            <view animation="{{dialogAnimation}}" class="pop-dialog">
+                <scroll-view class="scroll-cnt" scrollY="true">
+                    <view wx:for="{{subCategories}}" wx:key="{{ index }}">
+                        <view class="category-title">{{item.title}}</view>
+                        <view class="category-cnt">
+                            <view bindtap="openCat" class="category-item" data-keyword="{{item}}" data-title="{{item}}" data-type="search" wx:for="{{item.entries}}" wx:for-index="itemIndex" wx:key="{{ itemIndex }}">
+                                <view class="sub-category-label">{{item}}</view>
+                            </view>
+                        </view>
+                    </view>
+                </scroll-view>
+                <icon catchtap="closeSubcat" class="close-btn" color="#D3D3D3" size="20" type="clear"></icon>
+            </view>
+        </view>
+        <app-button></app-button>
+        <popup bind:afteropen="preventPageScroll" bind:beforeclose="enablePageScroll" height="auto" id="pop-subcat" wx:if="{{canUseComponent}}">
+            <scroll-view class="scroll-cnt" scrollTop="{{scrollTop}}" scrollY="true" slot="content">
+                <view wx:for="{{subCategories}}" wx:key="{{ index }}">
+                    <view class="category-title">{{item.title}}</view>
+                    <view class="category-cnt">
+                        <view bindtap="openCat" class="category-item" data-keyword="{{item}}" data-title="{{item}}" data-type="search" wx:for="{{item.entries}}" wx:for-index="itemIndex" wx:key="{{ itemIndex }}">
+                            <view class="sub-category-label">{{item}}</view>
+                        </view>
+                    </view>
+                </view>
+            </scroll-view>
+            <view slot="footer">
+                <view class="container has-bottom-safe-area" wx:if="{{hasBottomSafeArea}}"></view>
+                <icon catchtap="closeSubcat" class="close-btn" color="#D3D3D3" size="20" type="clear"></icon>
+            </view>
+        </popup>
+    </view>
+</view>

@@ -1,0 +1,66 @@
+<import src="../../common/item.wxml"></import>
+<view wx:scope-data="{{...searchScopeData}}">
+    <view class="container">
+        <view class="search-box">
+            <view class="search-bar">
+                <input bindblur="onBlur" bindconfirm="searchInput" bindfocus="onFocus" bindinput="inputChange" bindtap="onFocus" class="search-input" confirmType="search" focus="{{focus}}" placeholder="今天想吃点什么？" placeholderClass="search-placeholder" type="text" value="{{initValue}}"></input>
+                <icon bindtap="clearInput" class="clear-search {{q.length>0&&showSearchPop?'':'hide'}}" color="#D3D3D3" size="14" type="clear"></icon>
+                <view bindtap="exitInputMode" class="cancel-btn" wx:if="{{inputMode}}">取消</view>
+            </view>
+            <view class="search-pop">
+                <view class="search-suggester" wx:if="{{q.length>0&&suggestKeywords.length>0&&showSearchPop}}">
+                    <view bindtap="searchKeyword" class="item" data-keyword="{{item}}" wx:for="{{suggestKeywords}}" wx:key="{{index}}">{{item}}</view>
+                </view>
+            </view>
+            <view class="toolbar {{unfold?'unfold':''}}" style="height: {{unfold?'78rpx':'0'}};" wx:if="{{recipes.length&&!inputMode}}">
+                <view class="filter">
+                    <view bindtap="searchOrderBy" class="filter-item {{orderBy===''?'current':''}}" data-type="">综合</view>
+                    <view bindtap="searchOrderBy" class="filter-item {{orderBy==='-score'?'current':''}}" data-type="-score">评分最高</view>
+                    <view bindtap="searchOrderBy" class="filter-item {{orderBy==='-n_dishes'?'current':''}}" data-type="-n_dishes">做过最多</view>
+                </view>
+            </view>
+        </view>
+        <scroll-view wx:if="{{q.length===0&&recipes.length===0||inputMode}}">
+            <view style="height: 100rpx"></view>
+            <view class="keyword-list" wx:if="{{searchHistory.length>0}}">
+                <view class="sub-title">
+        搜索历史
+        <view bindtap="clearHistory" class="clear-history" data-title="清空">清空</view>
+                </view>
+                <view>
+                    <view bindtap="searchKeyword" class="keyword-item history-item" data-index="{{index}}" data-keyword="{{item}}" data-title="搜索历史" wx:for="{{searchHistory}}" wx:key="{{index}}">{{item}}</view>
+                </view>
+            </view>
+            <view class="keyword-list " wx:if="{{popularKeywords.length>0}}">
+                <view class="sub-title">
+        热门搜索
+      </view>
+                <view>
+                    <view bindtap="searchKeyword" class="keyword-item history-item" data-index="{{index}}" data-keyword="{{item}}" data-title="热门搜索" wx:for="{{popularKeywords}}" wx:key="{{index}}">{{item}}</view>
+                </view>
+            </view>
+        </scroll-view>
+        <scroll-view bindscroll="onScroll" bindscrolltolower="loadMore" class="scroll-list" enableBackToTop="true" lowerThreshold="{{threshold}}" scrollY="true" wx:else>
+            <view class="search-bar-holder"></view>
+            <view>
+                <view wx:for="{{recipes}}" wx:key="{{content.object.id}}">
+                    <template is="search-item" data="{{item:item.content.object,index:index}}"></template>
+                    <view class="search-ad" wx:if="{{index==5}}">
+                        <ad unitId="adunit-6487b1ba4dafccca"></ad>
+                    </view>
+                </view>
+            </view>
+            <view class="error-tip" wx:if="{{recipes.length===0&&!pending&&!showErrorTip&&afterFetch}}">
+      没找到相关菜谱，换个关键词试试？
+    </view>
+            <view bindtap="fetchRecipes" class="error-tip" wx:if="{{showErrorTip}}">
+       请求失败，点击重试
+    </view>
+            <view class="loading-bar {{hasMore&&recipes.length>10||pending?'':'hide'}}">
+                <image src="https://s.chuimg.com/upload/fe7c0b86-2e97-11e5-a56d-e0db5512b208.gif"></image>
+            </view>
+        </scroll-view>
+        <app-button param="https://www.xiachufang.com/search/?keyword={{utils.encode(q)}}&cat=1001" wx:if="{{!inputMode}}"></app-button>
+    </view>
+</view>
+<wxs module="utils" src="../../common/utils.wxs" />
