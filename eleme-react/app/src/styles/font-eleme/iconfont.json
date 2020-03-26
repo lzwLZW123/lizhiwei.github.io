@@ -1,0 +1,44 @@
+{
+  "id": "1600905",
+  "name": "eleme",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "509784",
+      "name": "dindan",
+      "font_class": "dindan",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "2235814",
+      "name": "会员卡",
+      "font_class": "huiyuanqia",
+      "unicode": "e62d",
+      "unicode_decimal": 58925
+    },
+    {
+      "icon_id": "3561121",
+      "name": "服务中心",
+      "font_class": "fuwuzhongxin",
+      "unicode": "e852",
+      "unicode_decimal": 59474
+    },
+    {
+      "icon_id": "5769336",
+      "name": "下载app",
+      "font_class": "xiazaiapp",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "6205848",
+      "name": "dizhiguanli",
+      "font_class": "dizhiguanli",
+      "unicode": "e64c",
+      "unicode_decimal": 58956
+    }
+  ]
+}
