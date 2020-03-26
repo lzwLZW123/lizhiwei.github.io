@@ -1,8 +1,0 @@
-<!--pages/mine/mine.wxml-->
-<view>
-  <view class="no-login" wx:if="{{!isLogin}}">
-    <image class="logo" mode="aspectFit" src="http://i2.chuimg.com/38c146984a704b73af226fe1d48c3d86_538w_268h.gif"></image>
-    <view class="login-tip">饮食有节，莫失好味，登录查看收藏的菜谱。</view>
-    <button bindtap="login" class="weui-btn login-btn" type="warn" data-title="登录">登录</button>
-  </view>
-</view>
