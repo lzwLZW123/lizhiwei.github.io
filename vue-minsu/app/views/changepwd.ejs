@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>修改密码</title>
+    <%- include common %>
+</head>
+<body>
+    <div>
+        <%- include('head',{title:'changepwd'})%>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <div class="col-md-3 col-lg-3 col-sm-3">
+                    <h3 class="text-success">  修改密码 </h3>
+                        <div class="form-group">
+                            <label for="oldpwd">旧密码:</label>
+                            <input  type="text" class="form-control" id="oldpwd" placeholder="请输入旧密码">
+                        </div>
+                        <div class="form-group">
+                            <label for="newpwd">新密码:</label>
+                            <input  type="password" class="form-control" id="newpwd" placeholder="请输入新密码">
+                        </div>
+                        <button  onclick="resetpwd()" type="button" class="btn btn-info">确认修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include foot %>
+
+    <script>
+    function resetpwd(){
+        $.ajax({
+            url:"/resetpwd",
+            type:"POST",
+            data:{
+                oldpwd:$("#oldpwd").val(),
+                newpwd:$("#newpwd").val(),
+            },
+            success(res){
+                alert(res.msg);
+                if(!!res.type){
+                    location.href = "/login"
+                }
+            }
+        })
+    }
+    </script>
+</body>
+</html>

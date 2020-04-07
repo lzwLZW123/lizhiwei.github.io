@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>民宿评论</title>
+    <%- include common %>
+    <style>
+    html,body,table{
+        width:100%;
+    }
+    .box{
+        width:100%;
+    }
+    </style>
+</head>
+<body>
+    <%- include('head',{title:'hotel'})%>
+    <div class="container-fluid">
+        <div class="row">
+            <h2 class="text-danger">民宿评论列表</h2>
+            <div class="form-group">
+                <h6>选择每页条数</h6>
+                <select  onchange="changePageCount()" id="selectCount" class="form-control" style="width:15%;">
+                    <option value="">请选择</option>
+                    <option value="4">每页4 条</option>
+                    <option value="8">每页8 条</option>
+                    <option value="10">每页10 条</option>
+                    <option value="15">每页15 条</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <h6>选择民宿名称</h6>
+                <select onChange="searchHotel()"  id="selectHotel" class="form-control" style="width:15%;">
+                <option value="">请选择</option>
+                <%    mv.forEach((m,i)=>{  %>
+                        <option value="<%- m.id %>"> <%- m.title%></option>
+                <%    })   %>
+                </select>
+            </div>
+        </div>
+        <div >
+            <div class="col-lg-12 col-sm-12 box">
+                <table  class="table table-hover table-bordered table-striped box">
+                    <caption class="h2 text-primary">民宿评论</caption>
+                    <tr class="text-danger text-center">
+                        <td>序号</td>
+                        <td>民宿名称</td>
+                        <td>民宿图片</td>
+                        <td>评论标题</td>
+                        <td style="width:15%">评论内容</td>
+                        <td>评论人</td>
+                        <td>评论时间</td>
+                        <td>操作1</td>
+                        <td>操作2</td>
+                    </tr>
+
+                <%    if(result.length>0){  %>
+                <%        result.map((item,index)=>{   %>
+                            <tr class="text-center">
+                                <td> <%- index +1 %></td>
+                                <td ><a href="/comment/mvdetail?mid=<%- item.mid %>"><%- item.mtitle  %></a></td>
+                                <td><img width="100" height="70" src="<%- item.mpic %>" alt=""></td>
+                                <td><a href="/comment/detail?cid=<%-item.cid %>"> <%- item.title %></a></td>
+                                <td style="width:15%" class="text-left text-success"><%- item.content %></td>
+                                <td><a href="/comment/my?uid=<%- item.uid %>"><%- item.uname %></a></td>
+                                <td><%- item.time %></td>
+                                <td>
+                                <%    if(item.uname==username){   %>
+                                    <button data-item='<%- JSON.stringify(item) %>' onclick="getobj(this)"  data-toggle="modal" data-target="#updatebox" class="btn btn-primary">更新</button>
+                                <%    }else{  %>
+                                     <button disabled class="btn btn-primary">无权限</button>
+                                <%    }    %>
+                                </td>
+                                <td>
+                                    <!-- JSON.stringify 只能使用单引号  -->
+                                <%    if(item.uname==username){  %>
+                                        <button data-item='<%- JSON.stringify(item) %>' onclick="getitem(this)"  class="btn btn-danger" data-toggle="modal" data-target="#delBox">删除</button>
+                                <%    }else{  %>
+                                    <button disabled class="btn btn-danger">无权限</button>
+                                <%   }   %>
+                                </td>
+                            </tr>
+                <%        })  %>
+                <tr>
+                    <td colspan="9">
+                        <button onclick="setNewId(-1)" class="btn btn-danger pull-right" data-toggle="modal" data-target="#delBox" >删除所有</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="9"> 
+                        <nav aria-label="Page navigation pull-right">
+                            <ul class="pagination">
+                              <li  class="<%- pageNo-1<1?'disabled':'' %>">
+                                <a  href="/comment/mlist?pageNo=<%- pageNo-1 %>" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                </a>
+                              </li>
+                              <li class="<%- pageNo-2<1?'disabled':'' %>" ><a href="/comment/mlist?pageNo=<%-pageNo-2 %>"><%- pageNo -2 %></a></li>
+                              <li class="<%- pageNo-1<1?'disabled':'' %>" ><a href="/comment/mlist?pageNo=<%-pageNo-1 %>"><%- pageNo -1 %></a></li>
+                              <li class="active"><a href="/comment/mlist?pageNo=<%-pageNo %>"> <%- pageNo %></a></li>
+                              <li class="<%- pageNo+1>totalPage?'disabled':'' %>"><a href="/comment/mlist?pageNo=<%-pageNo+1 %>"><%- pageNo +1  %></a></li>
+                              <li class="<%- pageNo+2>totalPage?'disabled':'' %>"><a href="/comment/mlist?pageNo=<%-pageNo+2 %>"><%- pageNo +2  %></a></li>
+                              <li class="<%- pageNo+1> totalPage ?'disabled':'' %>">
+                                <a href="/comment/mlist?pageNo=<%- pageNo+1 %>" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                </a>
+                              </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    共 <%- total%> 条数据 / 第 <%- pageNo%> 页 
+                                </li>
+                                <li>
+                                    共 <%- totalPage %> 页  / 每页 <%- pageSize%> 条
+                                </li>
+                            </ul>
+                          </nav>
+                    </td>
+                </tr>
+                <%    }else{   %>
+                        <tr>
+                            <td colspan="9">
+                                <p>暂无评论数据,请前往添加评论...</p>
+                            </td>
+                        </tr>
+                <%    }   %>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="delBox">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">删除警告!</h4>
+            </div>
+            <div class="modal-body">
+                <p>你真的确定要删除吗&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" onclick="todoDel()">删除</button>
+            </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="updatebox">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">修改评论</h4>
+            </div>
+            <div class="modal-body">
+                <h4>评论人 : <span id="someone"></span></h4>
+                <div class="form-group">
+                    <label for="title">标题:</label>
+                    <input   type="text" class="form-control" id="title" placeholder="请输入标题">
+                </div>
+                <div class="form-group">
+                    <label for="content">内容:</label>
+                    <textarea  class="form-control" id="content" cols="40" rows="8" placeholder="请输入内容"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" onclick="todoupdate()">确定</button>
+            </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <script>
+        window.onload = function(){
+            console.log(location);
+            var query = location.search.split("?")[1];
+            console.log(query);
+            var key =  query.split("=")[0];
+            var value = query.split("=")[1]; 
+            if(key=="mid"){
+                $("#selectHotel").val(value);
+            }else if(key=="pageSize"){
+                $("#selectCount").val(value);
+            }
+        }
+        function changePageCount(){
+            var count = $("#selectCount").val();
+            console.log(count);
+            location.href="/comment/mlist?pageSize="+count;
+        }
+
+        function searchHotel(){
+            var mid = $("#selectHotel").val();
+            location.href="/comment/mlist?mid="+mid;
+        }
+        var obj = null;
+        var id = null;
+
+        function getobj(that){
+            obj = JSON.parse($(that).attr("data-item"));
+            $("#someone").text(obj.uname);
+            $("#title").val(obj.title);
+            $("#content").val(obj.content);
+
+        }
+
+        function getitem(that){
+            var item = JSON.parse($(that).attr("data-item"));  // attribute 
+            obj = item;
+            id= obj._id;
+            console.log(id);
+        }
+
+
+        function setNewId(xid){
+            id = xid;
+        }
+
+        function todoDel(){
+            console.log(id);
+            $.ajax({
+                url:"/comment/delComment",
+                method:"POST",
+                data:{
+                    _id:id
+                },
+                success(res){
+                    // alert(res.msg);
+                    $('#delBox').modal('toggle'); // toggle 
+                    window.location.reload();
+                }
+            })
+        }
+
+
+        function todoupdate(){
+            $.ajax({
+                url:"/comment/updateComment",
+                method:"POST",
+                data:{
+                    _id:obj._id,
+                    title:$("#title").val(),
+                    content:$("#content").val()
+                },
+                success(res){
+                    $('#updatebox').modal('toggle'); // toggle 
+                    window.location.reload();
+                }
+            })
+        }
+    </script>
+</body>
+</html>

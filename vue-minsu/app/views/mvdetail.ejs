@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>当前民宿所有评论</title>
+    <%- include common %>
+</head>
+<body>
+    <%- include('head',{title:'hotel'})%>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-lg-6 col-sm-6">
+                <h2 class="text-danger ">民宿介绍 <%- hotel.title%></h2>
+                <div class="thumbnail">
+                    <img src="<%- hotel.images.large %>" style="height:450px;width:100%" alt="">
+                    <div class="caption">
+                        <h4 class="text-danger "> <%-hotel.title%></h4>
+                        <p class="text-success">评分 : <%- hotel.rating.average %></p>
+                        <p class="text-warning">价格 : ￥<%- hotel.genres %> /每晚</p>
+                        <button class="btn btn-danger" onclick="history.go(-1)">返回</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6">
+                <h2 class="text-success ">所有评论</h2>
+                <div class="well">
+                <%    comments.forEach((item,i)=>{  %>
+                        <div style="border:2px solid blue;border-radius: 6px;margin-top:10px;">
+                            <h4 class="text-danger">标题: <%- item.title  %></h4>
+                            <h5 class="text-success">内容: <%- item.content  %></h5>
+                            <p>评论人 : <%-  item.uname %></p>
+                            <p>时间  : <%-  item.time  %></p>
+                        </div>
+                <%    })   %>
+                </div>
+            </div>
+        </div> 
+    </div>
+
+    <script>
+       
+    </script>
+</body>
+</html>

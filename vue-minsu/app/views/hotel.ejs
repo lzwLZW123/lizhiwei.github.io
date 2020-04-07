@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>武汉民宿主页</title>
+    <%- include common %>
+</head>
+<body>
+    <%- include('head',{title:'hotel'})%>
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="form-group col-lg-4 col-sm-3">
+                <input  type="text" class="form-control col-lg-3" id="keyword" placeholder="请输入关键字" style="position: relative;left: 500px;top:40px">
+                <button class="btn btn-success col-lg-2" onclick="todoSearch()" style="position: relative;left: 900px;top:7px">点击搜索</button>
+            <!-- </div> -->
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-4 " style="position: relative;left: 50px;top: 90px;">
+                <button class="btn btn-success" onclick="location.href='/hotel?rating.average=1'">评分升序</button>
+                <button class="btn btn-info" onclick="location.href='/hotel?rating.average=-1'">评分降序</button>
+                <button class="btn btn-primary" onclick="location.href='/hotel?genres=1'">价格升序</button>
+                <button class="btn btn-warning" onclick="location.href='/hotel?genres=-1'">价格降序</button>
+            </div>
+        </div>
+        <div class="row">
+            <h2>民宿列表</h2>
+        <%    result.forEach((item,index)=>{  %>
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                    <div class="thumbnail">
+                        <img src="<%- item.images.large %>" style="height:240px;width:100%" alt="">
+                        <div class="caption">
+                            <a href="/comment/index?mid=<%- item.id %>">
+                                <h4 class="text-danger "> <%-item.title%></h4>
+                                <p class="text-info">整套一居室-可居住1~2人</p>
+                                <p class="text-success">评分 : <%- item.rating.average %></p>
+                                <p class="text-warning">价格: ￥<%- item.genres %> /每晚</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+        <%    })   %>
+        </div> 
+    </div>
+
+    <script>
+        function todoSearch(){
+            window.location.href = "/hotel?keyword="+$("#keyword").val()
+        }
+    </script>
+</body>
+</html>

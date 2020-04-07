@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的所有电影评论</title>
+    <%- include common %>
+</head>
+<body>
+    <%- include('head',{title:'movie'})%>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-lg-6 col-sm-6">
+                <h2 class="text-danger ">个人中心 --  <%- userInfo.username %> </h2>
+                <div class="thumbnail">
+                    <p class="text-success">用户名 : <%- userInfo.username %></p>
+                    <p class="text-info">编号 : <%-userInfo.uid %></p>
+                    <p class="text-warning">手机号 : <%- userInfo.mobile  %></p>
+                    <button class="btn btn-danger" onclick="history.go(-1)">返回</button>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-sm-6">
+                <h2 class="text-success ">所有评论</h2>
+                <div class="well">
+                    <%    comments.forEach((item,i)=>{  %>
+                            <div style="border:2px solid blue;border-radius: 6px;margin-top:10px;">
+                                <h4 class="text-danger">标题: <%- item.title  %></h4>
+                                <h5 class="text-success">内容: <%- item.content  %></h5>
+                                <p>评论人 : <%-  item.uname %></p>
+                                <p>时间  : <%-  item.time  %></p>
+                            </div>
+                    <%    })   %>
+                </div>
+            </div>
+        </div> 
+    </div>
+
+    <script>
+       
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <%- include common %>
+</head>
+
+<body style="background: url(/images/upload/bbb.jpg) fixed;">
+  <%- include('head',{title:'home'})%>
+  <!-- <h1><%= title %></h1>
+    <%#   这是注释的文本...  %> -->
+  <!-- <div>
+        <button type="button" class="btn btn-primary">（首选项）Primary</button>
+        <button type="button" class="btn btn-success">（成功）Success</button>
+        <button type="button" class="btn btn-info">（一般信息）Info</button>
+        <button type="button" class="btn btn-warning">（警告）Warning</button>
+        <button type="button" class="btn btn-danger">（危险）Danger</button>
+    </div> -->
+  <div>
+    <%  if(username){   %>
+    <h2>欢迎登陆 : <%- username %></h2>
+    <div class="row" style="position: relative;left: 75px;top: 0px;">
+      <button type="button" class="btn btn-primary  col-md-5" onclick="location.href='/hotel'">进入主页</button>
+      <button type="button" class="btn btn-danger  col-md-5" onclick="location.href='/logout'">注销 </button>
+    </div>
+    <%  }else{   %>
+    <h2>你还未登录,请登陆....</h2>
+    <div class="row" style="position: relative;left: 75px;top: 0px;">
+      <button type="button" class="btn btn-success col-md-5" onclick="location.href='/login'">登录</button>
+      <button type="button" class="btn btn-info col-md-5" onclick="location.href='/register'"> 注册 </button>
+    </div>
+    <%  }   %>
+  </div>
+  <!-- <%  teachers.forEach((item,index)=>{  %>
+         <div>
+            <h2> <%-index %> ---- <%- item %></h2>
+         </div>
+    <%  })  %> -->
+
+  <!-- <%- include('foot') %> -->
+  <%- include foot  %>
+</body>
+
+</html>
+
+
+<script>
+  $.ajax({
+    url: "/sendToken",
+    success(res) {
+      console.log(res);
+      if (res.token) {
+        sessionStorage.token = res.token;
+      } else {
+        sessionStorage.token = "";
+      }
+    }
+  })
+</script>
